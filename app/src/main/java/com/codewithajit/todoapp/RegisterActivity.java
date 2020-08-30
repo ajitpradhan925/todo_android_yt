@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,34 +35,22 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LoginActivity extends AppCompatActivity {
-    private Button registerBtn;
-
-    private Button loginBtn;
-    private EditText email_ET, password_ET;
+public class RegisterActivity extends AppCompatActivity {
+    private Button loginBtn, registerBtn;
+    private EditText name_ET, email_ET, password_ET;
     ProgressBar progressBar;
 
-    private String email, password;
+    private String name, email, password;
     UtilService utilService;
-
 
     SharedPreferenceClass sharedPreferenceClass;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-
-        registerBtn = findViewById(R.id.registerBtn);
-
-        registerBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-                startActivity(intent);
-            }
-        });
+        setContentView(R.layout.activity_register);
 
         loginBtn = findViewById(R.id.loginBtn);
+        name_ET = findViewById(R.id.name_ET);
         email_ET = findViewById(R.id.email_ET);
         password_ET = findViewById(R.id.password_ET);
         progressBar = findViewById(R.id.progress_bar);
@@ -73,24 +62,34 @@ public class LoginActivity extends AppCompatActivity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                utilService.hideKeyboard(view, LoginActivity.this);
+                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        registerBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                utilService.hideKeyboard(view, RegisterActivity.this);
+                name = name_ET.getText().toString();
                 email = email_ET.getText().toString();
                 password = password_ET.getText().toString();
                 if(validate(view)) {
-                    loginUser(view);
+                    registerUser(view);
                 }
             }
         });
     }
 
-    private void loginUser(View view) {
+    private void registerUser(View view) {
         progressBar.setVisibility(View.VISIBLE);
 
         final HashMap<String, String> params = new HashMap<>();
+        params.put("username", name);
         params.put("email", email);
         params.put("password", password);
 
-        String apiKey = "https://todoappyt.herokuapp.com/api/todo/auth/login";
+        String apiKey = "https://todoappyt.herokuapp.com/api/todo/auth/register";
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,
                 apiKey, new JSONObject(params), new Response.Listener<JSONObject>() {
@@ -101,10 +100,8 @@ public class LoginActivity extends AppCompatActivity {
                         String token = response.getString("token");
 
                         sharedPreferenceClass.setValue_string("token", token);
-
-                        Toast.makeText(LoginActivity.this, token, Toast.LENGTH_SHORT).show();
-
-                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        Toast.makeText(RegisterActivity.this, token, Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(RegisterActivity.this, MainActivity.class));
                     }
                     progressBar.setVisibility(View.GONE);
                 } catch (JSONException e) {
@@ -120,8 +117,9 @@ public class LoginActivity extends AppCompatActivity {
                 if(error instanceof ServerError && response != null) {
                     try {
                         String res = new String(response.data, HttpHeaderParser.parseCharset(response.headers,  "utf-8"));
+
                         JSONObject obj = new JSONObject(res);
-                        Toast.makeText(LoginActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                         progressBar.setVisibility(View.GONE);
                     } catch (JSONException | UnsupportedEncodingException je) {
                         je.printStackTrace();
@@ -149,9 +147,11 @@ public class LoginActivity extends AppCompatActivity {
         requestQueue.add(jsonObjectRequest);
     }
 
-    private boolean validate(View view) {
+
+    public boolean validate(View view) {
         boolean isValid;
 
+        if(!TextUtils.isEmpty(name)) {
             if(!TextUtils.isEmpty(email)) {
                 if(!TextUtils.isEmpty(password)) {
                     isValid = true;
@@ -163,10 +163,13 @@ public class LoginActivity extends AppCompatActivity {
                 utilService.showSnackBar(view,"please enter email....");
                 isValid = false;
             }
+        } else {
+            utilService.showSnackBar(view,"please enter name....");
+            isValid = false;
+        }
 
         return  isValid;
     }
-
 
     @Override
     protected void onStart() {
@@ -174,7 +177,7 @@ public class LoginActivity extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences("user_todo", MODE_PRIVATE);
         if(sharedPreferences.contains("token")) {
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            startActivity(new Intent(RegisterActivity.this, MainActivity.class));
             finish();
         }
     }
