@@ -42,7 +42,6 @@ public class RegisterActivity extends AppCompatActivity {
 
     private String name, email, password;
     UtilService utilService;
-
     SharedPreferenceClass sharedPreferenceClass;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +57,6 @@ public class RegisterActivity extends AppCompatActivity {
         utilService = new UtilService();
 
         sharedPreferenceClass = new SharedPreferenceClass(this);
-
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -98,7 +96,6 @@ public class RegisterActivity extends AppCompatActivity {
                 try {
                     if(response.getBoolean("success")) {
                         String token = response.getString("token");
-
                         sharedPreferenceClass.setValue_string("token", token);
                         Toast.makeText(RegisterActivity.this, token, Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(RegisterActivity.this, MainActivity.class));
@@ -174,9 +171,8 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
-        SharedPreferences sharedPreferences = getSharedPreferences("user_todo", MODE_PRIVATE);
-        if(sharedPreferences.contains("token")) {
+        SharedPreferences todo_pref = getSharedPreferences("user_todo", MODE_PRIVATE);
+        if(todo_pref.contains("token")) {
             startActivity(new Intent(RegisterActivity.this, MainActivity.class));
             finish();
         }

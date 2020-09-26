@@ -43,9 +43,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private String email, password;
     UtilService utilService;
-
-
     SharedPreferenceClass sharedPreferenceClass;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,7 +100,6 @@ public class LoginActivity extends AppCompatActivity {
                         String token = response.getString("token");
 
                         sharedPreferenceClass.setValue_string("token", token);
-
                         Toast.makeText(LoginActivity.this, token, Toast.LENGTH_SHORT).show();
 
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
@@ -167,13 +165,12 @@ public class LoginActivity extends AppCompatActivity {
         return  isValid;
     }
 
-
     @Override
     protected void onStart() {
         super.onStart();
 
-        SharedPreferences sharedPreferences = getSharedPreferences("user_todo", MODE_PRIVATE);
-        if(sharedPreferences.contains("token")) {
+        SharedPreferences todo_pref = getSharedPreferences("user_todo", MODE_PRIVATE);
+        if(todo_pref.contains("token")) {
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
             finish();
         }
