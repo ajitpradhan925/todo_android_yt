@@ -5,4 +5,8 @@
     <color name="colorAccent">#03DAC5</color>
     <color name="shade_black">#403B3B</color>
     <color name="white">#ffffff</color>
+
+
+    <item name="red" type="color">#E34439</item>
+
 </resources>

@@ -15,13 +15,11 @@ import android.os.PersistableBundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 
 import com.codewithajit.todoapp.UtilsService.SharedPreferenceClass;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
-        Button logout;
         SharedPreferenceClass sharedPreferenceClass;
         private Toolbar toolbar;
         private DrawerLayout drawerLayout;
@@ -41,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
             navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
                 @Override
-                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                public boolean onNavigationItemSelected(MenuItem item) {
                     setDrawerClick(item.getItemId());
                     item.setChecked(true);
                     drawerLayout.closeDrawers();
@@ -71,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
         };
 
         drawerToggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.white));
-
         drawerLayout.addDrawerListener(drawerToggle);
     }
 
@@ -111,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
         return super.onOptionsItemSelected(item);
     }
 }
