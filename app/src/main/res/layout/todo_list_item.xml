@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardUseCompatPadding="true"
     app:cardCornerRadius="5dp"
-    app:cardBackgroundColor="@color/red"
+    android:layout_margin="3dp"
     android:id="@+id/accordian_title"
     android:layout_height="wrap_content">
 

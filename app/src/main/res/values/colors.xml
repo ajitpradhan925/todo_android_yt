@@ -7,6 +7,16 @@
     <color name="white">#ffffff</color>
 
 
-    <item name="red" type="color">#E34439</item>
 
+    <item name="green" type="color">#8BC34A</item>
+    <item name="orange" type="color">#D1A522</item>
+    <item name="red" type="color">#E34439</item>
+    <item name="darkblue" type="color">#03A9F4</item>
+
+    <integer-array name="androidcolors">
+        <item>@color/green</item>
+        <item>@color/orange</item>
+        <item>@color/red</item>
+        <item>@color/darkblue</item>
+    </integer-array>
 </resources>
