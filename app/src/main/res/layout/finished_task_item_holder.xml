@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardUseCompatPadding="true"
+    app:cardCornerRadius="5dp"
+    android:layout_margin="3dp"
+    android:id="@+id/accordian_title"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+        <ImageView
+            android:id="@+id/arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_arrow"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/task_title"
+            android:layout_centerVertical="true"
+            android:text="Go to bed"
+            android:textColor="#fff"
+            android:textSize="20sp"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:layout_marginRight="60dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            />
+
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/accordian_body"
+        android:padding="5dp"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="50dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/task_description"
+            android:textColor="#fff"
+            android:text="Description: At 12AM"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_delete"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="25dp"
+            android:id="@+id/deleteBtn"
+            android:layout_toLeftOf="@+id/task_description"
+            />
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

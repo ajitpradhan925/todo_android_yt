@@ -50,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        registerBtn = (Button) findViewById(R.id.registerBtn);
+        registerBtn = findViewById(R.id.registerBtn);
 
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,7 +64,6 @@ public class LoginActivity extends AppCompatActivity {
         email_ET = findViewById(R.id.email_ET);
         password_ET = findViewById(R.id.password_ET);
         progressBar = findViewById(R.id.progress_bar);
-        registerBtn = findViewById(R.id.registerBtn);
         utilService = new UtilService();
 
         sharedPreferenceClass = new SharedPreferenceClass(this);

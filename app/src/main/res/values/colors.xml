@@ -13,6 +13,9 @@
     <item name="red" type="color">#E34439</item>
     <item name="darkblue" type="color">#03A9F4</item>
 
+    <color name="gray">#888787</color>
+
+
     <integer-array name="androidcolors">
         <item>@color/green</item>
         <item>@color/orange</item>
