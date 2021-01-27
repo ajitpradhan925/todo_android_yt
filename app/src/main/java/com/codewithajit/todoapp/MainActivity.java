@@ -186,6 +186,24 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+            switch (item.getItemId()) {
+                case R.id.action_share:
+                    Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+                    sharingIntent.setType("text/plain");
+
+                    String shareBody = "Hey try this to do app, it uses permanent saving of your task.";
+
+                    sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
+                    startActivity(Intent.createChooser(sharingIntent, "Share Via"));
+
+                    return true;
+
+                case R.id.refresh_menu:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.content, new HomeFragment()).commit();
+                    return true;
+
+            }
         return super.onOptionsItemSelected(item);
     }
 }
